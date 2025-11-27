@@ -1,0 +1,27 @@
+{
+  "status": "completed",
+  "model_path": "/home/user/webapp/phin_model_output/final_model",
+  "training_args": {
+    "model_name": "microsoft/DialoGPT-medium",
+    "data_path": "/home/user/webapp/phin_model_output/phin_training_data.jsonl",
+    "output_dir": "/home/user/webapp/phin_model_output",
+    "epochs": 3,
+    "batch_size": 4,
+    "learning_rate": 5e-05,
+    "warmup_steps": 100,
+    "save_steps": 500,
+    "eval_steps": 250,
+    "device": "auto",
+    "use_lora": true,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lora_dropout": 0.1,
+    "lora_target_modules": [
+      "q_proj",
+      "v_proj",
+      "k_proj",
+      "o_proj"
+    ]
+  },
+  "timestamp": "2025-11-27 05:51:36.055699"
+}

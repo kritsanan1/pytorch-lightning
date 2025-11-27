@@ -1,0 +1,70 @@
+{
+  "model_name": "microsoft/DialoGPT-medium",
+  "data_path": "/home/user/webapp/processed_data/litgpt_phin_dataset.jsonl",
+  "output_dir": "/home/user/webapp/phin_model_output",
+  "training_config": {
+    "epochs": 3,
+    "batch_size": 4,
+    "learning_rate": 5e-5,
+    "warmup_steps": 100,
+    "save_steps": 500,
+    "eval_steps": 250,
+    "max_length": 2048,
+    "gradient_accumulation_steps": 4,
+    "fp16": true,
+    "dataloader_num_workers": 2
+  },
+  "lora_config": {
+    "use_lora": true,
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.1,
+    "target_modules": ["q_proj", "v_proj", "k_proj", "o_proj"],
+    "bias": "none",
+    "task_type": "CAUSAL_LM"
+  },
+  "phin_specific": {
+    "domain": "thai_music",
+    "instrument": "phin",
+    "styles": ["lam_plearn", "lam_klon", "mor_lam", "phuen_ban", "sib_song", "kratai", "kham_khuen"],
+    "regions": ["isan", "central", "northern", "southern"],
+    "tuning_systems": ["7_tone_equal", "traditional_thai"],
+    "applications": ["transcription", "analysis", "education", "preservation"],
+    "cultural_context": {
+      "description": "Traditional Thai xylophone music from Isan region",
+      "significance": "Intangible cultural heritage of Northeastern Thailand",
+      "performance_contexts": ["village gatherings", "festivals", "ceremonies", "entertainment"],
+      "musical_characteristics": {
+        "scale_system": "7-tone Thai system",
+        "rhythmic_patterns": "Traditional Isan meters",
+        "tempo_range": "80-160 BPM",
+        "typical_duration": "3-15 minutes"
+      }
+    }
+  },
+  "data_augmentation": {
+    "enabled": true,
+    "techniques": ["pitch_shift", "time_stretch", "dynamic_range_compression", "reverb_addition"],
+    "parameters": {
+      "pitch_shift_range": [-2, 2],
+      "time_stretch_range": [0.8, 1.2],
+      "dynamic_range_factor": 0.7,
+      "reverb_mix": 0.3
+    }
+  },
+  "evaluation": {
+    "metrics": ["perplexity", "bleu", "rouge", "cultural_accuracy"],
+    "test_split": 0.1,
+    "validation_split": 0.1,
+    "cross_validation": true,
+    "human_evaluation": true
+  },
+  "output_specifications": {
+    "model_format": "litgpt_checkpoint",
+    "tokenizer": "gpt2",
+    "vocab_size": 50257,
+    "context_length": 2048,
+    "model_size_mb": 350,
+    "inference_speed": "<1s per 1000 tokens"
+  }
+}
